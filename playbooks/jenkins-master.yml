@@ -1,0 +1,66 @@
+---
+- name: Create a Jenkins Master
+  hosts: jenkins_master
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: Make a Jenkins directory
+    file:
+      path: /opt/jenkins
+      state: directory
+      owner: root
+      group: root
+
+  - name: Update system
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+
+  - name: Install some packages
+    apt:
+      pkg:
+        - openjdk-11-jdk
+        - wget
+        - net-tools
+        - cowsay
+      update_cache: yes
+
+  - name: Download Jenkins package
+    get_url:
+      url: https://get.jenkins.io/war-stable/2.319.1/jenkins.war
+      dest: /opt/jenkins/jenkins.war
+
+  - name: Verify downloaded file
+    file:
+      path: /opt/jenkins/jenkins.war
+      state: file
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: Launch Jenkins
+    shell: nohup java -jar /opt/jenkins/jenkins.war & 
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: Wait for jenkins to respond on port 8080
+    wait_for:
+      host: "{{ ansible_host }}"
+      port: 8080
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: Wait for the initial password file to be written
+    wait_for:
+      path: /root/.jenkins/secrets/initialAdminPassword
+
+  - name: Get initial password
+    shell: cat /root/.jenkins/secrets/initialAdminPassword
+    register: p
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: And hte password is 
+    debug: 
+      msg: "{{ p.stdout }}"
+    ignore_errors: "{{ ansible_check_mode }}"
+
+
