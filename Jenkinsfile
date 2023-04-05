@@ -26,6 +26,7 @@ pipeline {
         }
         stage('run ansible-lint against playbook') {
             steps {
+                // # cytopia/ansible-lint:4 - container name and version 4
                 sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 apache-install.yml'
                 sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 website-update.yml'
                 sh 'docker run --rm -v $WORKSPACE/playbooks:/data cytopia/ansible-lint:4 website-test.yml'
