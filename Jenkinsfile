@@ -9,8 +9,8 @@ pipeline {
         stage('Installing Ansible') {
             steps {
                 script {
-                    def ansible_exists = fileExists '/usr/bin/ansible'
-                    if (true) {
+                    // def ansible_exists = fileExists '/usr/bin/ansible'
+                    if (fileExists '/usr/bin/ansible') {
                         echo "Skipping Ansible Install - already exists"
                     } else {
                         sh 'sudo apt-get update -y && sudo apt-get upgrade -y'
