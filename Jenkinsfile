@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     def ansible_exists = fileExists '/usr/bin/ansible'
-                    if (ansible_exists == true) {
+                    if (ansible_exists) {
                         echo "Skipping Ansible Install - already exists"
                     } else {
                         sh 'sudo apt-get update -y && sudo apt-get upgrade -y'
