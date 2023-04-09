@@ -12,3 +12,6 @@ https://dzone.com/articles/configure-jenkins-notifications-with-microsoft-tea
 https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/
 https://www.digitalocean.com/community/questions/using-multiple-git-repositories-with-jenkins-ci-cd
 https://www.edureka.co/community/8876/how-to-trigger-jenkins-pipeline-in-another-jenkins-pipeline
+
+## API
+curl -X POST --data-urlencode "token=${TOKEN}" --data-urlencode json='{"parameter": [{"name": "myParam", "value": "TEST"}]}' https://jenkins.corp/job/$JENKINS_JOB/build
