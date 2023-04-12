@@ -1,4 +1,6 @@
 # Useful links from the course
+https://drive.google.com/drive/folders/1wQAelCSPSn11m7iRObp7q1vhyOxyEw_t
+
 ## Ansible
 https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html
 https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html
